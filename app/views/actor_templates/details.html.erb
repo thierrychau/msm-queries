@@ -79,17 +79,19 @@
   </tr>
   
   <% @the_filmography.each do |a_character| %>
+  <% matching_movie = Movie.where({ :id => a_character.movie_id }).at(0) %>
+  <% matching_director = Director.where({ :id => matching_movie.director_id }).at(0) %>
   <tr>
     <td>
-      <%= Movie.where({ :id => a_character.movie_id }).at(0).title %>
+      <%= matching_movie.title %>
     </td>
 
     <td>
-       <%= Movie.where({ :id => a_character.movie_id }).at(0).year %>
+       <%= matching_movie.year %>
     </td>
 
     <td>
-      <%= Director.where({ :id => Movie.where({ :id => a_character.movie_id }).at(0).director_id }).at(0).name %>
+      <%= matching_director.name %>
     </td>
 
     <td>
@@ -97,7 +99,7 @@
     </td>
 
     <td>
-      <a href="/movies/<%= Movie.where({ :id => a_character.movie_id }).at(0).id %>">
+      <a href="/movies/<%= matching_movie.id %>">
         Show details
       </a>
     </td>
