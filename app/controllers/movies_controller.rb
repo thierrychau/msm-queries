@@ -1,13 +1,12 @@
 class MoviesController < ApplicationController
   def index
-    render({ :template => "movies_templates/list" })
+    render({ :template => "movie_templates/list" })
   end
 
   def show
-    the_id = params.fetch("the_id")
-    @the_director = Director.where({ :id => the_id }).at(0)
-    @the_filmography = Movie.where({ :director_id => the_id })
+    movie_id = params.fetch("movie_id")
+    @the_movie = Movie.where({ :id => movie_id }).at(0)
 
-    render({ :template => "movies_templates/details" })
+    render({ :template => "movie_templates/details" })
   end
 end
